@@ -28,11 +28,13 @@
             return $this->contact_info;
         }
 
-        
+        function __construct($job_title, $job_description, $job_contact_info) {
+          $this->title = $job_title;
+          $this->description = $job_description;
+          $this->contact_info = $job_contact_info;
+        }
 
     }
 
 
-
-
- ?>
+?>
