@@ -1,6 +1,6 @@
 <?php
     require_once __DIR__."/../vendor/autoload.php";
-    require_once __DIR__."/../web/jobboard.php";
+    require_once __DIR__."/../jobboard.php";
 
     $app = new Silex\Application();
 
@@ -12,7 +12,7 @@
               <title></title>
             </head>
             <body>
-              <form action="/jobboard">
+              <form action="/view_jobboard">
                 <div class="form-group">
                   <label for="title">Title</label>
                   <input name="title" class="form-control" id="title" type="text">
@@ -32,26 +32,15 @@
           ';
     });
 
-    $app->get("/jobboard", function() {
-      return '
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <meta charset="utf-8">
-            <title></title>
-          </head>
-          <body>
-            result
-          </body>
-        </html>
-
-      ';
-    });
-
     $app->get("/view_jobboard", function() {
         $my_jobOpening = new JobOpening($_GET['title'], $_GET['description'], $_GET['contact_info']);
-        return $_GET['title'];
-});
+        $output = '';
+        $output = $output . $my_jobOpening->getTitle().'<br>'.
+        $my_jobOpening->getDescription().'<br>'.
+        $my_jobOpening->getContactInfo();
+
+        return $output;
+    });
 
 
     return $app;
